@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notice of Site Visit</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+        }
+        /* Style for border */
+        .button-separator {
+            border-top: 1px solid #ccc;
+            margin-top: 20px;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>NOTICE OF SITE VISIT</h1>
+        <h2>BY A CHILD CARE LICENSING OFFICE REPRESENTATIVE</h2>
+        
+        <form action="/" method="post">
+            <div class="section">
+                <label for="facility_name">A site visit or complaint investigation was conducted at:</label>
+                <input type="number" id="facility_name" name="Facility_Number" class="input-field" placeholder="Facility Number">
+            </div>
+            
+            <div class="section">
+                <label for="license_number">License Number:</label>
+                <input type="text" id="license_number" name="License_Number" class="input-field" placeholder="License Number">
+            </div>
+            
+            <div class="section">
+                <label for="date_of_visit">Date of Visit:</label>
+                <input type="date" id="date_of_visit" name="Site_Visit_Date" class="input-field">
+            </div>
+                
+            <div class="section">
+                <div class="question">
+                    <label>1. Were regulatory violations issued during this visit?</label>
+                </div>
+                <div class="options">
+                    <input type="radio" id="violations_yes" name="Regulatory_Violation_Citation_Ind" value="1">
+                    <label for="violations_yes">Yes</label>
+                    <input type="radio" id="violations_no" name="Regulatory_Violation_Citation_Ind" value="0">
+                    <label for="violations_no">No</label>
+                </div>
+            </div>
+        
+            <div class="section">
+                <div class="question">
+                    <label>2. If regulatory violations were cited, would they pose an immediate risk to the health and safety of children in care, if not corrected (Type A)?</label>
+                </div>
+                <div class="options">
+                    <input type="radio" id="type_a_yes" name="Regulatory_Violation_TypeA_Citation_Ind" value="1">
+                    <label for="type_a_yes">Yes</label>
+                    <input type="radio" id="type_a_no" name="Regulatory_Violation_TypeA_Citation_Ind" value="0">
+                    <label for="type_a_no">No</label>
+                </div>
+            </div>
+        
+            <div class="section">
+                <div class="question">
+                    <label>3. If regulatory violations were cited, could they become a risk to the health, safety, or personal rights of children in care if not corrected (Type B)?</label>
+                    <p>(Examples include a recordkeeping violation that would impact the care of children or a violation that would impact those services required to meet children’s needs.)</p>
+                </div>
+                <div class="options">
+                    <input type="radio" id="type_b_yes" name="Regulatory_Violation_TypeB_Citation_Ind" value="1">
+                    <label for="type_b_yes">Yes</label>
+                    <input type="radio" id="type_b_no" name="Regulatory_Violation_TypeB_Citation_Ind" value="0">
+                    <label for="type_b_no">No</label>
+                </div>
+            </div>
+
+            <div class="section">
+                <p><strong>ONLY VISIT REPORTS DOCUMENTING TYPE A VIOLATIONS AND CORRECTIONS OF VIOLATIONS MUST BE POSTED IN THE CHILD CARE FACILITY FOR 30 CONSECUTIVE DAYS.</strong></p>
+            </div>
+    
+            <div class="section">
+                <label for="regional_office"><p>Regardless of whether or not this child care facility is required to post a copy of today’s site visit report, you may view the report at the facility or obtain one by contacting the local Child Care Regional Office at:</p></label>
+                <input type="number" id="regional_office" name="Regional_Office_Id" class="input-field" placeholder="Regional Office ID">
+            </div>
+    
+            <div class="section">
+                <label for="contact_person">Regional Office Contact Person:</label>
+                <input type="text" id="contact_person" name="LPA_Name" class="input-field" placeholder="Contact Person">
+            </div>
+           
+            <div class="section">
+                <label for="contact_number">Contact Person Telephone Number:</label>
+                <input type="tel" id="contact_number" name="LPA_Phone_Number" class="input-field" placeholder="Contact Number">
+            </div>
+
+            <div class="section">
+                <button type="submit">Submit Notice</button>
+            </div>
+
+            <div class="button-separator"></div>
+
+            <div class="button-group">
+                <div class="section">
+                    <label for="Facility_Number">Enter Facility Number:</label>
+                    <input type="text" id="Facility_Number" name="Facility_Number" class="input-field" onchange="toggleButtons()">
+                </div>
+                <!-- <button type="submit">Submit</button> -->
+                <button type="button" id="viewBtn" onclick="window.location.href='/read/' + document.getElementById('Facility_Number').value">View</button>
+                <button type="button" id="updateBtn" onclick="window.location.href='/update/' + document.getElementById('Facility_Number').value">Update</button>
+                <button type="button" id="deleteBtn" onclick="confirmDelete()">Delete</button>            </div>
+        </form>
+    </div>
+
+    <script>
+        var viewBtn = document.getElementById('viewBtn');
+        var updateBtn = document.getElementById('updateBtn');
+        var deleteBtn = document.getElementById('deleteBtn');
+        viewBtn.disabled = true;
+        updateBtn.disabled = true;
+        deleteBtn.disabled = true;
+
+        function toggleButtons() {
+            var noticeIdInput = document.getElementById('Facility_Number');
+            var viewBtn = document.getElementById('viewBtn');
+            var updateBtn = document.getElementById('updateBtn');
+            var deleteBtn = document.getElementById('deleteBtn');
+
+            if (noticeIdInput.value) {
+                viewBtn.disabled = false;
+                updateBtn.disabled = false;
+                deleteBtn.disabled = false;
+            } else {
+                viewBtn.disabled = true;
+                updateBtn.disabled = true;
+                deleteBtn.disabled = true;
+            }
+        }
+
+        function confirmDelete() {
+            if (confirm('Are you sure you want to delete?')) {
+                var facilityNumber = document.getElementById('Facility_Number').value;
+                window.location.href = '/delete/' + facilityNumber;
+            }
+        }
+    </script>
+</body>
+</html>

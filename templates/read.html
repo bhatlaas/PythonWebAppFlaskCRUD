@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Site Visit Notice</title>
+</head>
+<body>
+    <h1>View Site Visit Notice</h1>
+    <table>
+        <tr><th>Field</th><th>Value</th></tr>
+        <tr><td>Regional Office ID</td><td>{{ record.Regional_Office_Id }}</td></tr>
+        <tr><td>Facility Number</td><td>{{ record.Facility_Number }}</td></tr>
+        <tr><td>Site Visit Date</td><td>{{ record.Site_Visit_Date }}</td></tr>
+        <tr><td>Regulatory Violation Issued</td><td>{{ record.Regulatory_Violation_Citation_Ind }}</td></tr>
+        <tr><td>Type A Violation</td><td>{{ record.Regulatory_Violation_TypeA_Citation_Ind }}</td></tr>
+        <tr><td>Type B Violation</td><td>{{ record.Regulatory_Violation_TypeB_Citation_Ind }}</td></tr>
+        <tr><td>LPA Name</td><td>{{ record.LPA_Name }}</td></tr>
+        <tr><td>LPA Phone Number</td><td>{{ record.LPA_Phone_Number }}</td></tr>
+    </table>
+    <a href="/">Back to Home</a>
+    <form action="{{ url_for('delete', Facility_Number=record.Facility_Number) }}" method="post">
+        <button type="submit">Delete</button>
+    </form>
+    <a href="{{ url_for('update', Facility_Number=record.Facility_Number) }}">Update</a>
+</body>
+</html>

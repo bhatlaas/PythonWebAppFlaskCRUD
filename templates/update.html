@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Site Visit Notice</title>
+</head>
+<body>
+    <h1>Update Site Visit Notice</h1>
+    <form action="{{ url_for('update', Facility_Number=record.Facility_Number) }}" method="post">
+        <label for="Regional_Office_Id">Regional Office ID:</label>
+        <input type="text" id="Regional_Office_Id" name="Regional_Office_Id" value="{{ record.Regional_Office_Id }}" class="input-field">
+        <label for="Facility_Number">Facility Number:</label>
+        <input type="text" id="Facility_Number" name="Facility_Number" value="{{ record.Facility_Number }}" class="input-field">
+        <label for="Site_Visit_Date">Site Visit Date:</label>
+        <input type="date" id="Site_Visit_Date" name="Site_Visit_Date" value="{{ record.Site_Visit_Date }}" class="input-field">
+        <div class="section">
+            <div class="question">
+                <label>Were regulatory violations issued during this visit?</label>
+            </div>
+            <div class="options">
+                <input type="radio" id="violations_yes" name="Regulatory_Violation_Citation_Ind" value="1" {% if record.Regulatory_Violation_Citation_Ind %}checked{% endif %}>
+                <label for="violations_yes">Yes</label>
+                <input type="radio" id="violations_no" name="Regulatory_Violation_Citation_Ind" value="0" {% if not record.Regulatory_Violation_Citation_Ind %}checked{% endif %}>
+                <label for="violations_no">No</label>
+            </div>
+        </div>
+        <div class="section">
+            <div class="question">
+                <label>If regulatory violations were cited, would they pose an immediate risk to the health and safety of children in care, if not corrected (Type A)?</label>
+            </div>
+            <div class="options">
+                <input type="radio" id="type_a_yes" name="Regulatory_Violation_TypeA_Citation_Ind" value="1" {% if record.Regulatory_Violation_TypeA_Citation_Ind %}checked{% endif %}>
+                <label for="type_a_yes">Yes</label>
+                <input type="radio" id="type_a_no" name="Regulatory_Violation_TypeA_Citation_Ind" value="0" {% if not record.Regulatory_Violation_TypeA_Citation_Ind %}checked{% endif %}>
+                <label for="type_a_no">No</label>
+            </div>
+        </div>
+        <div class="section">
+            <div class="question">
+                <label>If regulatory violations were cited, could they become a risk to the health, safety, or personal rights of children in care if not corrected (Type B)?</label>
+                <p>(Examples include a recordkeeping violation that would impact the care of children or a violation that would impact those services required to meet children’s needs.)</p>
+            </div>
+            <div class="options">
+                <input type="radio" id="type_b_yes" name="Regulatory_Violation_TypeB_Citation_Ind" value="1" {% if record.Regulatory_Violation_TypeB_Citation_Ind %}checked{% endif %}>
+                <label for="type_b_yes">Yes</label>
+                <input type="radio" id="type_b_no" name="Regulatory_Violation_TypeB_Citation_Ind" value="0" {% if not record.Regulatory_Violation_TypeB_Citation_Ind %}checked{% endif %}>
+                <label for="type_b_no">No</label>
+            </div>
+        </div>
+        <label for="LPA_Name">LPA Name:</label>
+        <input type="text" id="LPA_Name" name="LPA_Name" value="{{ record.LPA_Name }}" class="input-field">
+        <label for="LPA_Phone_Number">LPA Phone Number:</label>
+        <input type="tel" id="LPA_Phone_Number" name="LPA_Phone_Number" value="{{ record.LPA_Phone_Number }}" class="input-field">
+        <button type="submit">Update</button>
+    </form>
+    <a href="/">Back to Home</a>
+    <form action="{{ url_for('delete', Facility_Number=record.Facility_Number) }}" method="post">
+        <button type="submit">Delete</button>
+    </form>
+</body>
+</html>
